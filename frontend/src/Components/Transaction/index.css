@@ -1,0 +1,200 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  :root {
+    --background-color-light: #f9f9f9;
+    --background-color-dark: #2b2b2b;
+    --text-color-light: #2b2b2b;
+    --text-color-dark: #f9f9f9;
+    --card-background-color-light: #ffffff;
+    --card-background-color-dark: #333333;
+    --primary-color-light: #007bff;
+    --primary-color-dark: #1a73e8;
+    --secondary-color-light: #28a745;
+    --secondary-color-dark: #34a853;
+    --danger-color-light: #dc3545;
+    --danger-color-dark: #ea4335;
+    --border-color-light: #ddd;
+    --border-color-dark: #444;
+  }
+  
+  .light-theme {
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --card-background-color: var(--card-background-color-light);
+    --primary-color: var(--primary-color-light);
+    --secondary-color: var(--secondary-color-light);
+    --danger-color: var(--danger-color-light);
+    --border-color: var(--border-color-light);
+  }
+  
+  .dark-theme {
+    --background-color: var(--background-color-dark);
+    --text-color: var(--text-color-dark);
+    --card-background-color: var(--card-background-color-dark);
+    --primary-color: var(--primary-color-dark);
+    --secondary-color: var(--secondary-color-dark);
+    --danger-color: var(--danger-color-dark);
+    --border-color: var(--border-color-dark);
+  }
+  
+  .transaction-app {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .transaction-app button {
+    display: inline-block;
+    width: 220px;
+    padding: 12px;
+    margin: 20px 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .transaction-app button:hover {
+    background-color: lighten(var(--primary-color), 10%);
+    transform: translateY(-2px);
+  }
+  
+  .theme-toggle-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .theme-toggle-button:hover {
+    background-color: lighten(var(--primary-color), 10%);
+    transform: translateY(-2px);
+  }
+  
+  .transaction-form {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transaction-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    text-align: left;
+    color: var(--text-color);
+  }
+  
+  .transaction-form input,
+  .transaction-form select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: var(--card-background-color);
+    color: var(--text-color);
+  }
+  
+  .transaction-form button {
+    width: calc(50% - 10px);
+    padding: 12px;
+    margin: 10px 5px 0 0;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .transaction-form button:last-child {
+    background-color: var(--danger-color);
+  }
+  
+  .transaction-form button:hover {
+    background-color: lighten(var(--secondary-color), 10%);
+    transform: translateY(-2px);
+  }
+  
+  .transaction-form button:last-child:hover {
+    background-color: lighten(var(--danger-color), 10%);
+  }
+  
+  .error {
+    color: var(--danger-color);
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--card-background-color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  table thead {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  table th,
+  table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 16px;
+    color: var(--text-color);
+  }
+  
+  table th {
+    font-size: 18px;
+  }
+  
+  table tbody tr:hover {
+    background-color: lighten(var(--primary-color), 20%);
+  }
+  
+  table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: lighten(var(--primary-color), 30%);
+  }
+  
