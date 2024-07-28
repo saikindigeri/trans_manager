@@ -12,16 +12,19 @@ const Transaction = () => {
   const [formData, setFormData] = useState({ type: 'credit', amount: '', description: '' });
   const [error, setError] = useState('');
   const [theme, setTheme] = useState('light');
+
   useEffect(() => {
-    axios.get('https://trans-manager-1.onrender.com/api/transactions')
-      .then(response => {
-        setTransactions(response.data.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the transactions!', error);
-      });
+    fetchTransactions();
   }, []);
 
+  const fetchTransactions = async () => {
+    try {
+      const response = await axios.get('https://trans-manager-1.onrender.com/api/transactions');
+      setTransactions(response.data.data);
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
+    }
+  };
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -54,10 +57,9 @@ const Transaction = () => {
 
     axios.post('https://trans-manager-1.onrender.com/api/transactions', newTransaction)
       .then(response => {
-        setTransactions([...transactions, response.data]);
-        setShowForm(false);
-        setFormData({ type: 'credit', amount: '', description: '' });
-        setError('');
+        setFormData({ type: '', amount: '', description: '' });
+      setShowForm(false);
+      fetchTransactions(); // Fetch updated transactions from the server
       })
       .catch(error => {
         console.error('There was an error saving the transaction!', error);
