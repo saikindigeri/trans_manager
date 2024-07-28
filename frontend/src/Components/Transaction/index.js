@@ -13,7 +13,7 @@ const Transaction = () => {
   const [error, setError] = useState('');
   const [theme, setTheme] = useState('light');
   useEffect(() => {
-    axios.get('http://localhost:5001/api/transactions')
+    axios.get('https://trans-manager-1.onrender.com/api/transactions')
       .then(response => {
         setTransactions(response.data.data);
       })
@@ -52,7 +52,7 @@ const Transaction = () => {
       description: formData.description,
     };
 
-    axios.post('http://localhost:5001/api/transactions', newTransaction)
+    axios.post('https://trans-manager-1.onrender.com/api/transactions', newTransaction)
       .then(response => {
         setTransactions([...transactions, response.data]);
         setShowForm(false);

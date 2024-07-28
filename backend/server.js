@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Database setup
-const dbPath = path.join(__dirname, '..', 'backend', 'transactions.db');
+// Path to your database file
+const dbPath = path.join(__dirname, 'transactions.db');
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Error opening database', err.message);
