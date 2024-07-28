@@ -1,15 +1,26 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
-const db = require('./database');
+const path = require('path');
 
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Database setup
+const dbPath = path.join(__dirname, '..', 'backend', 'transactions.db');
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Error opening database', err.message);
+  } else {
+    console.log('Connected to the SQLite database.');
+  }
+});
 
+// API endpoints
 app.get('/api/transactions', (req, res) => {
   db.all('SELECT * FROM transactions', [], (err, rows) => {
     if (err) {
@@ -17,38 +28,36 @@ app.get('/api/transactions', (req, res) => {
       return;
     }
     res.json({
+      message: 'success',
       data: rows
     });
   });
 });
 
-
 app.post('/api/transactions', (req, res) => {
   const { type, amount, description } = req.body;
-  const date = new Date().toLocaleDateString();
-
-  db.get('SELECT total FROM transactions ORDER BY id DESC LIMIT 1', [], (err, row) => {
-    const previousTotal = row ? row.total : 0;
-    const total = type === 'credit' ? previousTotal + amount : previousTotal - amount;
-
-    db.run(`INSERT INTO transactions (type, amount, description, date, total) VALUES (?, ?, ?, ?, ?)`,
-      [type, amount, description, date, total],
-      function(err) {
-        if (err) {
-          res.status(400).json({ error: err.message });
-          return;
-        }
-        res.json({
-          id: this.lastID,
-          type,
-          amount,
-          description,
-          date,
-          total
-        });
+  const date = new Date().toISOString().split('T')[0];
+  db.run(`INSERT INTO transactions (date, type, amount, description) VALUES (?, ?, ?, ?)`, [date, type, amount, description], function(err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: 'success',
+      data: {
+        id: this.lastID,
+        date,
+        type,
+        amount,
+        description
       }
-    );
+    });
   });
+});
+
+// Serve frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
 app.listen(PORT, () => {
